@@ -1,0 +1,47 @@
+.ng1-front-menu{
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;bottom: 0;
+    background: rgba(0,0,0,.6);
+   z-index: 1000;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   display:none;
+}
+.ng1-front-menu.active{
+
+
+   display: flex;
+
+}
+.ng1-front-menu__inner{
+    background: white;
+    padding: 50px;
+   z-index: 1000;
+   min-height: 30vh;
+   min-width: 60vw;
+  
+}
+.ng1-front-menu__inner>div{
+    cursor:pointer;
+   }
+
+   .ng1-front-menu__toggle{
+    position: fixed;
+
+    left: 50%;
+   
+    bottom:0   ;
+    background: white;
+    height: 50px;width: 50px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   z-index: 100000;
+   border-top-left-radius: 12px;
+   border-top-right-radius: 12px;
+}

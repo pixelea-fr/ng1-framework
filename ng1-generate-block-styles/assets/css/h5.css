@@ -1,0 +1,5 @@
+p.is-style-h5, h1.is-style-h5, h2.is-style-h5, h3.is-style-h5, h4.is-style-h5, h5.is-style-h5, h6.is-style-h5 {
+  font-size: var(--wp--preset--font-size--medium);
+  font-weight: 700;
+  text-transform: uppercase;
+}

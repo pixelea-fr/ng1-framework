@@ -1,0 +1,23 @@
+.entry-content{
+
+    >.alignfull{
+    width: 100vw;
+    max-width: 100%;
+    }
+    >.alignwide{
+       max-width: var(--wp--style--global--wide-size);
+       margin-right: auto;
+       margin-left: auto;
+        }
+    >:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+        max-width: var(--wp--style--global--content-size);
+     margin-right: auto;
+     margin-left: auto;
+    }
+    >.alignright{
+       float:right;
+    }
+    >.alignleft{
+        float:left;
+     }
+}
