@@ -13,6 +13,7 @@ require_once plugin_dir_path(__FILE__) . 'ng1-register-script/index.php';
 
 include_once plugin_dir_path(__FILE__) . 'ng1-hybrid-theme/index.php';
 
+require_once plugin_dir_path(__FILE__) . 'ng1-block-styles/index.php';
 require_once plugin_dir_path(__FILE__) . 'ng1-theme-json-folder/index.php';
 require_once plugin_dir_path(__FILE__) . 'ng1-front-menu/index.php';
 require_once plugin_dir_path(__FILE__) . 'ng1-acf-blocks/index.php';
