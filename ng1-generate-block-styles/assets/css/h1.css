@@ -1,4 +1,6 @@
 p.is-style-h1, h1.is-style-h1, h2.is-style-h1, h3.is-style-h1, h4.is-style-h1, h5.is-style-h1, h6.is-style-h1 {
-  font-size: 3.625rem;
-  line-height: 1.2;
+  color: var(--wp--preset--color--first);
+  font-size: var(--wp--preset--font-size--xx-large);
+  font-family: var(--wp--preset--font-family--second);
+  letter-spacing: var(--wp--custom--letter-spacing--l);
 }

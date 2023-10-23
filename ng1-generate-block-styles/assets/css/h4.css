@@ -1,3 +1,5 @@
 p.is-style-h4, h1.is-style-h4, h2.is-style-h4, h3.is-style-h4, h4.is-style-h4, h5.is-style-h4, h6.is-style-h4 {
-  font-size: var(--wp--preset--font-size--large);
+  color: var(--wp--preset--color--first);
+  font-size: var(--wp--preset--font-size--xx-large);
+  letter-spacing: var(--wp--custom--letter-spacing--l);
 }

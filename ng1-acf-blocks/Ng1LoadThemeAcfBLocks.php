@@ -9,6 +9,7 @@ class Ng1LoadThemeAcfBLocks {
         add_action( 'init', array( $this, 'load_blocks' ), 5 );
         add_filter( 'acf/settings/load_json', array( $this, 'load_acf_field_group' ) );
         add_filter( 'block_categories_all', array( $this, 'block_categories' ),10,2 );
+        add_action('wp_enqueue_scripts', array($this, 'register_block_script_from_folder'));
     }
 
     /**
@@ -24,7 +25,47 @@ class Ng1LoadThemeAcfBLocks {
             }
         }
     }
+    /**
+     * Enregistre les scripts JavaScript des sous-répertoires des blocs.
+     *
+     * Cette fonction recherche un fichier 'function.js' dans chaque sous-répertoire du répertoire 'acf-blocks'
+     * et l'enregistre comme script avec un identifiant basé sur le nom du sous-répertoire.
+     */
+    function register_block_script_from_folder() {
+        // Chemin vers le répertoire principal des blocs
+        $block_directory = get_stylesheet_directory() . '/acf-blocks/';
 
+        // Vérifie si le répertoire principal des blocs existe
+        if (!is_dir($block_directory)) {
+            return;
+        }
+
+        // Récupère la liste de tous les sous-répertoires dans le répertoire principal des blocs
+        $block_folders = scandir($block_directory);
+
+        // Parcours chaque sous-répertoire
+        foreach ($block_folders as $block) {
+            // Ignore les répertoires '.' et '..'
+            if ($block === '.' || $block === '..') {
+                continue;
+            }
+
+            // Chemin vers le fichier 'function.js' dans le sous-répertoire actuel
+            $js_file_path = $block_directory . $block . '/assets/js/function.js';
+
+            // Vérifie si le fichier 'function.js' existe
+            if (file_exists($js_file_path)) {
+                // Génère un identifiant basé sur le nom du sous-répertoire
+                $handle = sanitize_title($block);
+
+                // Définit l'URL source du script
+                $src = get_stylesheet_directory_uri() . '/acf-blocks/' . $block . '/assets/js/function.js';
+
+                // Enregistre le script
+                wp_enqueue_script($handle, $src, array('jquery'), null, true);
+            }
+        }
+    }
     /**
      * Load ACF field groups for blocks
      */

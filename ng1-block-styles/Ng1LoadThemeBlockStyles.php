@@ -53,5 +53,4 @@ class Ng1LoadThemeBlockStyles {
 
     }
 }
-
 new Ng1LoadThemeBlockStyles();

@@ -1,4 +1,6 @@
 p.is-style-h6, h1.is-style-h6, h2.is-style-h6, h3.is-style-h6, h4.is-style-h6, h5.is-style-h6, h6.is-style-h6 {
-  font-size: var(--wp--preset--font-size--medium);
-  text-transform: uppercase;
+  color: var(--wp--preset--color--first);
+  font-size: var(--wp--preset--font-size--xx-large);
+  font-family: var(--wp--preset--font-family--second);
+  letter-spacing: var(--wp--custom--letter-spacing--l);
 }
