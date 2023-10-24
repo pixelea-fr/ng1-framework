@@ -17,6 +17,8 @@ require_once plugin_dir_path(__FILE__) . 'ng1-block-styles/index.php';
 require_once plugin_dir_path(__FILE__) . 'ng1-theme-json-folder/index.php';
 require_once plugin_dir_path(__FILE__) . 'ng1-front-menu/index.php';
 require_once plugin_dir_path(__FILE__) . 'ng1-acf-blocks/index.php';
+require_once plugin_dir_path(__FILE__) . 'ng1-composition/index.php';
+
 
 require_once plugin_dir_path(__FILE__) . 'ng1-sql-export/index.php';
 require_once plugin_dir_path(__FILE__) . 'ng1-theme-json-to-scss/index.php';
