@@ -21,7 +21,7 @@ function ng1_composition_init() {
         add_action('admin_notices', 'ng1_composition__error');
         return;
     } else {
-        require_once 'NG1Composition.php';
+        require_once 'Ng1Composition.php';
         global $ng1_composition;
         $ng1_composition = new ng1Composition();
     }
