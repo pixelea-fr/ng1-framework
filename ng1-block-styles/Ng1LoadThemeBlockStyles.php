@@ -2,7 +2,8 @@
 class Ng1LoadThemeBlockStyles {
     public function __construct() {
         // Ajoutez un hook pour charger les styles lors de l'initialisation du thème
-        add_action('after_setup_theme', array($this, 'load_ng1_block_styles'),5);
+        add_action('wp_enqueue_scripts', array($this, 'load_ng1_block_styles'),5);
+        //add_action('admin_enqueue_scripts', array($this, 'load_ng1_block_styles'),5);
     }
 
     public function trouverFichiersIndex($dossier) {

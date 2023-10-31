@@ -10,7 +10,7 @@ class ng1ThemeJsonFolder {
      */
     public function __construct() {
         $this->ng1ThemeJsonUtilities = new Ng1ThemeJsonUtilities();
-      new Ng1AjaxFrontMenu('merge_theme_json', array($this, 'merge_theme_json_from_folder'), 'theme_json_from_folder', 10, 'Générer le theme.json à partir du dossier theme-json du thème');
+      new Ng1AjaxFrontMenu('merge_theme_json', array($this, 'merge_theme_json_from_folder'), 'theme_json_from_folder', 2, 'Générer le theme.json à partir du dossier theme-json du thème');
     }
     /**
      * Fusionne les fichiers JSON du thème en un seul fichier.

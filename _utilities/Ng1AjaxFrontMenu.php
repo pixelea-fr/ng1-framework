@@ -11,8 +11,8 @@
      */
 class Ng1AjaxFrontMenu extends Ng1Ajax {
 
-    // Ajoutez la variable $menu_position
-    private $menu_position;
+    // Ajoutez la variable $tab_index
+    private $tab_index;
     private $menu_label;
     private $filter_identifier;
     private $filter_base_tag;
@@ -22,7 +22,7 @@ class Ng1AjaxFrontMenu extends Ng1Ajax {
      * @param string $ajax_action Le nom de l'action Ajax.
      * @param callable $callback_function La fonction de rappel pour la requête Ajax.
      * @param callable $load_js_callback La fonction de rappel utilisée pour charger des ressources JavaScript. Il peut être soit un appel à une fonction de la classe actuelle en utilisant array($this, 'nom_de_la_fonction'), ce qui vous permet d'utiliser une fonction personnalisée de la classe, soit une chaîne de caractères unique pour charger le script par défaut en utilisant les paramètres spécifiques à l'instance.
-     * @param int $menu_position La priorité pour l'action ng1_front_menu.
+     * @param int $tab_index La priorité pour l'action ng1_front_menu.
      * @param string $menu_label Le libellé du menu.
      * @param string $filter_identifier L'hook identifier perrmet d'ajouter des filtres:
      * - ng1_ajax_front_menu_ $filter_identifier _before
@@ -32,7 +32,7 @@ class Ng1AjaxFrontMenu extends Ng1Ajax {
      * - ng1_ajax_front_menu_ $filter_identifier _error_message
      * - ng1_ajax_front_menu_ $filter_identifier _output
      */
-    public function __construct($ajax_action, $callback_function, $load_js_callback = null, $menu_position = 10, $menu_label = 'Label du bouton',$filter_identifier='default') {
+    public function __construct($ajax_action, $callback_function, $load_js_callback = null, $tab_index = 1, $menu_label = 'Label du bouton',$filter_identifier='default') {
         parent::__construct($ajax_action, $callback_function, $load_js_callback);
       
         $this->filter_identifier = $filter_identifier;
@@ -40,13 +40,14 @@ class Ng1AjaxFrontMenu extends Ng1Ajax {
         // Supprime l'action de la classe de base
         remove_action('ng1_front_menu', array($this, 'add_in_front_menu'));
         // Utilisez la priorité passée en argument ou la valeur par défaut (10)
-        $this->menu_position = $menu_position;
+        $this->tab_index = $tab_index;
         $this->menu_label = $menu_label;
 
 
         // Ajoute la nouvelle action avec la priorité définie
-        add_action('ng1_front_menu', array($this, 'ng1_front_menu'), $this->menu_position);
-
+        add_action('ng1_front_menu', array($this, 'ng1_front_menu'), $this->tab_index);
+        add_filter('ng1_front_menu_tabs_label_'.$this->tab_index,function() {return $this->filter_identifier;});
+        add_action('ng1_front_menu_tabs_'.$this->tab_index, array($this, 'ng1_front_menu'));
         // Si $load_js_callback n'est pas défini, utilisez load_js par défaut
         if ($load_js_callback === null) {
             $this->load_js_callback = array($this, 'load_generique_js');
@@ -66,6 +67,8 @@ class Ng1AjaxFrontMenu extends Ng1Ajax {
     public function ng1_front_menu() {
         $html= '<div id="' . esc_attr($this->ajax_action) . '">' . esc_html($this->menu_label) .'</div>';
         echo apply_filters($this->filter_base_tag . '_form',  $html);
+      
+        
     }
         // Fonction pour charger le JavaScript
         public function load_generique_js() {
@@ -102,8 +105,7 @@ class Ng1AjaxFrontMenu extends Ng1Ajax {
             ";
            
             // Ajouter le code JavaScript en ligne
-            wp_add_inline_script('jquery', apply_filters("ng1_ajax_front_menu_" . trim($this->filter_identifier) . '_output', $custom_js));
+        wp_add_inline_script('jquery', apply_filters("ng1_ajax_front_menu_" . trim($this->filter_identifier) . '_output', $custom_js));
         }
         
 }
-

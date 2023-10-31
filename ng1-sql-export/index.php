@@ -12,7 +12,7 @@ class ng1ExportDatabase {
     // Constructeur pour initialiser les propriétés de classe
     public function __construct() {
 
-       new Ng1AjaxFrontMenu('generate_sql_file', array($this, 'export_database_to_sql'), null,10, 'Exporter la base de données');
+       new Ng1AjaxFrontMenu('generate_sql_file', array($this, 'export_database_to_sql'), null,1, 'Exporter la base de données',"SQL");
     }
 
     // Fonction pour exporter la base de données

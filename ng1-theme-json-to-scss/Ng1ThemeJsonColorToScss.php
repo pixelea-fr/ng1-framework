@@ -26,7 +26,7 @@ class Ng1ThemeJsonColorToScss {
         $this->themeJSONFile = get_stylesheet_directory_uri() . "/theme.json";
         $this->outputSCSSFile = get_stylesheet_directory()."/src/scss/theme-json/_colors.scss";
 
-        new Ng1AjaxFrontMenu('generate_color_scss', array($this, 'generate_scss'), 'generate_color_scss', 10, 'Générer les fichiers SCSS, à partir du theme.json');
+        new Ng1AjaxFrontMenu('generate_color_scss', array($this, 'generate_scss'), 'generate_color_scss', 2, 'Générer les fichiers SCSS, à partir du theme.json','Thème JSON');
     }
 
     /**

@@ -8,10 +8,13 @@ class ng1FrontMenu {
      * Constructeur de la classe.
      */
     public function __construct() {
+       
         // Ajoute des actions WordPress
         add_action('wp_enqueue_scripts',  array($this, 'load_js'), 100);
         add_action('wp_enqueue_scripts',  array($this, 'load_styles'), 103);
         add_action('wp_footer',  array($this, 'create_menu_footer'), 100);
+      
+
 
     }
     function create_menu_footer() {
@@ -38,7 +41,25 @@ class ng1FrontMenu {
           </div>
         <div class='ng1-front-menu'>
             <div class='ng1-front-menu__inner'>
-                <?php do_action('ng1_front_menu');?>    
+                <?php do_action('ng1_front_menu');?>
+                <div class="ng1-front-menu-label-tabs__items">
+            <?php for($i=1;$i<20;$i++):   ?>
+                <?php if (has_action('ng1_front_menu_tabs_'.$i)): ?>
+                <div class="ng1-front-menu-label-tabs__item ng1-front-menu-label-tabs__item--<?php echo $i; ?> ng1TabToggleJs" data-tabs="<?php echo $i; ?>">
+                    <?php echo apply_filters('ng1_front_menu_tabs_label_'.$i ,''); ?>
+                </div>
+                <?php endif; ?>
+            <?php endfor; ?>
+            </div>
+            <div class='ng1-front-menu-tabs__item'>
+            <?php for($i=1;$i<20;$i++):   ?>
+                <?php if (has_action('ng1_front_menu_tabs_'.$i)): ?>
+                <div class="ng1-front-menu-tabs__item ng1-front-menu-tabs__item--<?php echo $i; ?> ng1TabJs" data-tabs="<?php echo $i; ?>">
+                    <?php do_action('ng1_front_menu_tabs_'.$i ); ?>
+                </div>
+                <?php endif; ?>
+            <?php endfor; ?>
+            </div>
             </div>
        </div>
        <?php
@@ -66,10 +87,17 @@ class ng1FrontMenu {
         (function($){
             jQuery(document).ready(function($) {
                 $('body').on('click', '.frontMenuToggleJs', function() {
-
                    $('.ng1-front-menu').toggleClass('active');
                 });
+                $('.ng1TabJs').hide();
+
+                $('body').on('click','.ng1TabToggleJs', function() {
+                  var tabactive =$(this).attr('data-tabs');
+                  $('.ng1TabJs').hide();
+                  $('.ng1TabJs[data-tabs='+tabactive+']').show();
+                });
             });
+   
         })(jQuery);
         ";
 

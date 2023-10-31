@@ -45,3 +45,16 @@
    border-top-left-radius: 12px;
    border-top-right-radius: 12px;
 }
+.ng1-front-menu-label-tabs__items{
+    display: flex;
+   flex-wrap: wrap;
+
+
+}
+.ng1-front-menu-label-tabs__item{
+
+padding: 3px;
+background-color: lightgrey;
+border-right: 1px;
+margin-right: 2px;
+}

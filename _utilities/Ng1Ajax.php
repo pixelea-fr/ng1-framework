@@ -21,7 +21,7 @@ class Ng1Ajax {
      * @param callable $load_js_callback La fonction de rappel pour charger des ressources JavaScript.
      */
     public function __construct($ajax_action, $callback_function, $load_js_callback) {
-        wp_enqueue_script('jquery');
+
         $this->ajax_action = $ajax_action;
         $this->callback_function = $callback_function;
         $this->load_js_callback = $load_js_callback;
@@ -53,12 +53,16 @@ class Ng1Ajax {
      * Ajoute les actions pour charger des scripts, gérer les requêtes Ajax et d'autres actions spécifiques au plugin.
      */
     protected function add_actions() {
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'), 100);
         add_action('wp_enqueue_scripts', array($this, 'load_js'), 100);
         add_action('wp_ajax_' . $this->ajax_action, array($this, 'handle_ajax_request'));
         add_action('wp_ajax_nopriv_' . $this->ajax_action, array($this, 'handle_ajax_request'));
         add_action('ng1_front_menu', array($this, 'ng1_front_menu'), 10);
     }
-
+    public function enqueue_scripts() {
+        // Enregistrez et chargez jQuery
+        wp_enqueue_script('jquery');
+    }
     /**
      * Fonction pour charger des ressources JavaScript.
      *
