@@ -1,0 +1,20 @@
+.entry-content > .alignfull {
+  width: 100vw;
+  max-width: 100%;
+}
+.entry-content > .alignwide {
+  max-width: var(--wp--style--global--wide-size);
+  margin-right: auto;
+  margin-left: auto;
+}
+.entry-content > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  max-width: var(--wp--style--global--content-size);
+  margin-right: auto;
+  margin-left: auto;
+}
+.entry-content > .alignright {
+  float: right;
+}
+.entry-content > .alignleft {
+  float: left;
+}

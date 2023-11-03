@@ -55,8 +55,9 @@ class Ng1LoadThemeAcfBLocks {
 
             // Vérifie si le fichier 'function.js' existe
             if (file_exists($js_file_path)) {
+
                 // Génère un identifiant basé sur le nom du sous-répertoire
-                $handle = sanitize_title($block);
+               $handle = sanitize_title($block);
 
                 // Définit l'URL source du script
                 $src = get_stylesheet_directory_uri() . '/acf-blocks/' . $block . '/assets/js/function.js';
