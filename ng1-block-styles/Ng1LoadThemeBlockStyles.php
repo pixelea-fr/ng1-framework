@@ -2,7 +2,7 @@
 class Ng1LoadThemeBlockStyles {
     public function __construct() {
         // Ajoutez un hook pour charger les styles lors de l'initialisation du thème
-        add_action('wp_enqueue_scripts', array($this, 'load_ng1_block_styles'),5);
+        add_action('init', array($this, 'load_ng1_block_styles'),5);
         //add_action('admin_enqueue_scripts', array($this, 'load_ng1_block_styles'),5);
     }
 
@@ -22,6 +22,7 @@ class Ng1LoadThemeBlockStyles {
                     // Si c'est un fichier index.php, ajouter le chemin au tableau
                     if (basename($cheminFichier) == 'register.php') {
                         $fichiersIndex[] = $cheminFichier;
+                     
                     }
                 }
             }
@@ -45,6 +46,7 @@ class Ng1LoadThemeBlockStyles {
         foreach ($fichiersIndex as $fichier) {
             // Vérifiez si le fichier existe et s'il n'a pas déjà été inclus
             if (file_exists($fichier) ) {
+                $fichiersInclus[] = $fichier;
               include_once $fichier;
                 // Ajoutez le fichier à la liste des fichiers inclus
               
