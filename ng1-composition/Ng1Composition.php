@@ -2,29 +2,29 @@
 
 class ng1Composition {
     public function __construct() {
-        add_action('init', array($this,'add_option_page_ng1'));
+        add_action('admin_menu', array($this,'add_option_page_ng1'));
         add_action('init', array($this, 'remove_theme_support'));
         //CPT
         add_action('init', array($this, 'cpt_pattern'));
         //taxonomie
         add_action('init', array($this, 'register_pattern_categorie'));
         //Default Terms
-        add_action('init', array($this, 'register_block_pattern_category'));
-        add_action('init', array($this, 'ng1_block_patterns_categorie'));
-        //GENERATION DU PATTERN JSON dans le dossier du template
-        add_action('save_post', array($this,'save_composition_as_block_pattern_json'));
-        //Enregistrement des pattern a partir des json du dossier
-        add_action('init',  array($this,'register_block_patterns_from_files'));
-        //Mise en page par defaut d'un type de contenu
-        add_filter('default_content', array($this, 'ng1_default_post_type_template'), 10, 2);
-        
+          add_action('init', array($this, 'register_block_pattern_category'));
+          add_action('init', array($this, 'ng1_block_patterns_categorie'));
+          //GENERATION DU PATTERN JSON dans le dossier du template
+          add_action('save_post', array($this,'save_composition_as_block_pattern_json'));
+          //Enregistrement des pattern a partir des json du dossier
+          add_action('init',  array($this,'register_block_patterns_from_files'));
+          //Mise en page par defaut d'un type de contenu
+          add_filter('default_content', array($this, 'ng1_default_post_type_template'), 10, 2);
 
-        if (get_option('ng1_pattern_categories_registered') !== 'registered') {
-            // Si les termes n'ont pas encore été enregistrés, on les enregistre
-            add_action('init', array($this, 'create_pattern_categories'));
-            // Marquez les termes comme enregistrés pour éviter de les réenregistrer
-            update_option('ng1_pattern_categories_registered', 'registered');
-        }
+
+          if (get_option('ng1_pattern_categories_registered') !== 'registered') {
+              // Si les termes n'ont pas encore été enregistrés, on les enregistre
+              add_action('init', array($this, 'create_pattern_categories'));
+              // Marquez les termes comme enregistrés pour éviter de les réenregistrer
+              update_option('ng1_pattern_categories_registered', 'registered');
+          }
     }
 
     public function remove_theme_support() {
