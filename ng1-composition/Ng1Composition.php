@@ -219,19 +219,22 @@ class ng1Composition {
     // -----------------------------------------------------------------------------
     // NG1 default template
     // -----------------------------------------------------------------------------
-    public function ng1_default_post_type_template($content, $post) {
-        $template_postype = get_field('custom_post_ui_default', 'option');
-        $content = '';
-        if (!empty($template_postype) && is_array($template_postype)) {
-            foreach ($template_postype as $item) {
-                if ($post->post_type == $item['post_type']) {
-                    $post_actu = get_post($item['template']);
-                    $content = $post_actu->post_content;
+        public function ng1_default_post_type_template($content, $post) {
+        $custom_post_types = $this->get_custom_post_types();
+
+            // Vérifiez si le formulaire a été soumis
+        foreach ($custom_post_types as $post_type) {
+            if ($post->post_type == $post_type) {
+                $template_id = get_option('assigned_pattern_' . $post_type);
+                $html = get_post_field('post_content', $template_id );
+                if(!empty($html)) {
+                    return $html;
                 }
             }
         }
         return $content;
     }
+
 
    
     function save_composition_as_block_pattern_json($post_id) {
