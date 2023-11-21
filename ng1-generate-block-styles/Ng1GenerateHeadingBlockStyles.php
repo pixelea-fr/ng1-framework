@@ -11,7 +11,7 @@ class Ng1GenerateHeadingBlockStyles {
         $this->display_echo_message = false;
         $this->themeJSONFile = get_stylesheet_directory() . "/theme.json";
         $this->outputCssFolder = plugin_dir_path(__FILE__) . "assets/css";
-       $this->outputSCSSFile = plugin_dir_path(__FILE__) . "assets/scss/_styles.scss";
+        $this->outputSCSSFile = plugin_dir_path(__FILE__) . "assets/scss/_styles.scss";
 
         $this->ng1ThemeJsonUtilities = new Ng1ThemeJsonUtilities();
         // usage :  $this->ng1ThemeJsonUtilities->convertJsonPropertiesToCssProperties($value);
@@ -47,7 +47,7 @@ class Ng1GenerateHeadingBlockStyles {
             // Crée le contenu SCSS
             $tags = array("p","h1","h2","h3","h4","h5","h6");
        
-if (isset($themeData['styles']['elements'])) {
+        if (isset($themeData['styles']['elements'])) {
   
             foreach ($themeData['styles']['elements'] as $elementName => $elementStyles) {
                 if(!in_array($elementName, $tags)){
@@ -57,6 +57,7 @@ if (isset($themeData['styles']['elements'])) {
                 $selector =array();
                 foreach($tags as $tag){
                     $selector[] = "$tag.is-style-$elementName";
+                    $selector[] = ".editor-styles-wrapper $tag.is-style-$elementName";
                 }
                 $cssSelector = implode(", ",  $selector);
                 // Créez une classe .is-style-[elementName] avec les styles

@@ -8,15 +8,24 @@ class ng1FrontMenu {
      * Constructeur de la classe.
      */
     public function __construct() {
-       
-        // Ajoute des actions WordPress
-        add_action('wp_enqueue_scripts',  array($this, 'load_js'), 100);
-        add_action('wp_enqueue_scripts',  array($this, 'load_styles'), 103);
-        add_action('wp_footer',  array($this, 'create_menu_footer'), 100);
-      
-
-
+        add_action('init', array($this, 'add_action_for_administrator'));
     }
+    public function add_action_for_administrator() {
+        // Vérifiez si l'utilisateur est connecté
+        if (is_user_logged_in()) {
+            // Récupérez l'ID de l'utilisateur
+            $user_id = get_current_user_id();
+
+            // Vérifiez si l'utilisateur a le rôle d'administrateur
+            if (user_can($user_id, 'administrator')) {
+                // L'utilisateur est administrateur, exécutez vos actions ici
+                add_action('wp_enqueue_scripts', array($this, 'load_js'), 100);
+                add_action('wp_enqueue_scripts', array($this, 'load_styles'), 103);
+                add_action('wp_footer', array($this, 'create_menu_footer'), 100);
+            }
+        }
+    }
+
     function create_menu_footer() {
         // Ajoutez ici le code HTML que vous souhaitez afficher dans le footer
         ob_start();?>

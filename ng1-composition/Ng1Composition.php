@@ -9,14 +9,15 @@ class ng1Composition {
         //taxonomie
         add_action('init', array($this, 'register_pattern_categorie'));
         //Default Terms
-          add_action('init', array($this, 'register_block_pattern_category'));
-          add_action('init', array($this, 'ng1_block_patterns_categorie'));
-          //GENERATION DU PATTERN JSON dans le dossier du template
-          add_action('save_post', array($this,'save_composition_as_block_pattern_json'));
-          //Enregistrement des pattern a partir des json du dossier
-          add_action('init',  array($this,'register_block_patterns_from_files'));
-          //Mise en page par defaut d'un type de contenu
-          add_filter('default_content', array($this, 'ng1_default_post_type_template'), 10, 2);
+        add_action('init', array($this, 'register_block_pattern_category'));
+        add_action('init', array($this, 'ng1_block_patterns_categorie'));
+        //add_action('save_post', array($this,'modifier_contenu_cpt'), 10, 2);
+        //GENERATION DU PATTERN JSON dans le dossier du template
+        add_action('save_post', array($this,'save_composition_as_block_pattern_json'));
+        //Enregistrement des pattern a partir des json du dossier
+        add_action('init',  array($this,'register_block_patterns_from_files'));
+        //Mise en page par defaut d'un type de contenu
+        add_filter('default_content', array($this, 'ng1_default_post_type_template'), 10, 2);
 
 
           if (get_option('ng1_pattern_categories_registered') !== 'registered') {
@@ -239,20 +240,23 @@ class ng1Composition {
    
     function save_composition_as_block_pattern_json($post_id) {
 
-  
         // Vérifiez si le post en cours est un CPT "composition"
         if (get_post_type($post_id) == 'pattern') {
+          
             // Récupérez les données nécessaires depuis le post
             $title = get_the_title($post_id);
             $description = get_the_excerpt($post_id);
             $content = get_post_field('post_content', $post_id);
      
-            $categories = ['sans-cat'];
+            $categories = [];
             $cats = get_the_terms($post_id, 'pattern_categorie');
+
             if (!empty($cats)) {
                 foreach ($cats as $cat) {
                     array_push($categories, $cat->slug);
                 }
+            }else{
+                $categories = ['sans-cat'];
             }
     
             $pattern_data = array(
@@ -297,5 +301,27 @@ class ng1Composition {
             }
         }
     }
+// Ajoutez une action pour le hook save_post
 
+
+function remplacer_par_lorem_ipsum($content) {
+//  // Génère une liste de mots de Lorem Ipsum
+//  $lorem_ipsum_words = $this->generate_lorem_ipsum_words();
+//
+//  // Remplacez le texte par des mots de Lorem Ipsum
+//  $content = preg_replace_callback('/\b(\w+)\b/', function ($matches) use ($lorem_ipsum_words) {
+//      // Sélectionne un mot de Lorem Ipsum aléatoire
+//      $random_word = $lorem_ipsum_words[array_rand($lorem_ipsum_words)];
+//      return $random_word;
+//  }, $content);
+//
+//  return $content;
+}
+
+    // Fonction pour générer une liste de mots de Lorem Ipsum
+    public function generate_lorem_ipsum_words() {
+        $lorem_ipsum_text = 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum.';
+        $lorem_ipsum_words = explode(' ', $lorem_ipsum_text);
+        return $lorem_ipsum_words;
+    }
 }
