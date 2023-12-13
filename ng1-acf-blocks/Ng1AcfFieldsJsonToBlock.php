@@ -8,7 +8,7 @@ class Ng1AcfFieldsJsonToBock {
         //add_action('wp_enqueue_scripts',  array($this, 'load_styles'), 103);
        //add_action('wp_ajax_copy_acf_block_fields_json',  array($this, 'copy_acf_fields_json_to_block_folder'));
        //add_action('wp_ajax_nopriv_copy_acf_block_fields_json',  array($this, 'copy_acf_fields_json_to_block_folder'));
-        new Ng1AjaxFrontMenu('acf_fields_to_blockfolder', array($this, 'copy_acf_fields_json_to_block_folder'), 'acf_fields_to_blockfolder', 10, 'Copier les groupes de champs ACF vers les dossiers de blocs');
+        new Ng1AjaxFrontMenu('acf_fields_to_blockfolder', array($this, 'copy_acf_fields_json_to_block_folder'), 'acf_fields_to_blockfolder', 2, 'Champs ACF -> Block folder',"Blocks");
         //add_action('ng1_front_menu',array($this, 'add_in_front_menu'),10);
     }
 

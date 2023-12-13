@@ -3,19 +3,41 @@
 /**
  * Classe ng1ThemeJsonFolder pour la gestion des fichiers JSON du thème.
  */
-class ng1ThemeJsonFolder {
-    protected $ng1ThemeJsonUtilities;
+class Ng1ThemeJsonFolder {
+    private static $instance;
+    private $ng1ThemeJsonUtilities;
+
     /**
-     * Constructeur de la classe.
+     * Constructeur privé pour empêcher l'instanciation directe.
      */
-    public function __construct() {
+    private function __construct() {
         $this->ng1ThemeJsonUtilities = new Ng1ThemeJsonUtilities();
-      new Ng1AjaxFrontMenu('merge_theme_json', array($this, 'merge_theme_json_from_folder'), 'theme_json_from_folder', 2, 'Générer le theme.json à partir du dossier theme-json du thème');
+
+        new Ng1AjaxFrontMenu(
+            'merge_theme_json',
+            array($this, 'merge_theme_json_from_folder'),
+            'theme_json_from_folder',
+            1,
+            'Créé theme.json',
+            'Thème'
+        );
     }
+
+    /**
+     * Méthode pour récupérer l'instance unique de la classe.
+     *
+     * @return Ng1ThemeJsonFolder
+     */
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
     /**
      * Fusionne les fichiers JSON du thème en un seul fichier.
-     *
-     * @param string $theme_json Chemin du fichier de sortie fusionné.
      */
     public function merge_theme_json_from_folder() {
         $merge_file_folder = "theme-json";
@@ -39,5 +61,5 @@ class ng1ThemeJsonFolder {
 
 }
 
-// Instanciation de la classe
-$theme_json_folder = new ng1ThemeJsonFolder();
+// Utilisation du Singleton
+$theme_json_folder = Ng1ThemeJsonFolder::get_instance();
