@@ -46,6 +46,9 @@
         $cheminRacine = get_stylesheet_directory() . '/block-styles';
         // Vérifiez si le dossier existe
         if (!file_exists($cheminRacine) || !is_dir($cheminRacine)) {
+            if (!wp_mkdir_p($cheminRacine)) {
+                exit("Impossible de créer le dossier block-styles.");
+            }
             return;
         }
         $fichiersIndex = $this->trouverFichiersIndex($cheminRacine);
