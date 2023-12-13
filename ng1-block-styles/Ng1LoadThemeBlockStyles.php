@@ -1,9 +1,17 @@
-<?php
-class Ng1LoadThemeBlockStyles {
-    public function __construct() {
+<?php class Ng1LoadThemeBlockStyles {
+    private static $instance;
+
+    private function __construct() {
         // Ajoutez un hook pour charger les styles lors de l'initialisation du thème
-        add_action('init', array($this, 'load_ng1_block_styles'),5);
-        //add_action('admin_enqueue_scripts', array($this, 'load_ng1_block_styles'),5);
+        add_action('after_setup_theme', array($this, 'load_ng1_block_styles'), 5);
+    }
+
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
     public function trouverFichiersIndex($dossier) {
@@ -22,7 +30,6 @@ class Ng1LoadThemeBlockStyles {
                     // Si c'est un fichier index.php, ajouter le chemin au tableau
                     if (basename($cheminFichier) == 'register.php') {
                         $fichiersIndex[] = $cheminFichier;
-                     
                     }
                 }
             }
@@ -35,25 +42,28 @@ class Ng1LoadThemeBlockStyles {
     }
 
     public function load_ng1_block_styles() {
-
         // Obtenez le chemin absolu de la racine de WordPress
-        $cheminRacine = get_stylesheet_directory() .'/block-styles';
+        $cheminRacine = get_stylesheet_directory() . '/block-styles';
+        // Vérifiez si le dossier existe
+        if (!file_exists($cheminRacine) || !is_dir($cheminRacine)) {
+            return;
+        }
         $fichiersIndex = $this->trouverFichiersIndex($cheminRacine);
-        
+
         // Utilisez un tableau pour suivre les fichiers inclus
         $fichiersInclus = array();
 
         foreach ($fichiersIndex as $fichier) {
             // Vérifiez si le fichier existe et s'il n'a pas déjà été inclus
-            if (file_exists($fichier) ) {
-                $fichiersInclus[] = $fichier;
-              include_once $fichier;
+            if (file_exists($fichier) && !in_array($fichier, $fichiersInclus)) {
+                include_once $fichier;
                 // Ajoutez le fichier à la liste des fichiers inclus
-              
-
+                $fichiersInclus[] = $fichier;
             }
         }
-
     }
+
 }
-new Ng1LoadThemeBlockStyles();
+
+// Utilisation du singleton
+Ng1LoadThemeBlockStyles::get_instance();
