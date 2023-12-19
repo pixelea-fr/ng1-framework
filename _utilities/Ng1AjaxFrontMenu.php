@@ -38,15 +38,18 @@ class Ng1AjaxFrontMenu extends Ng1Ajax {
         $this->filter_identifier = $filter_identifier;
         $this->filter_base_tag = 'ng1_ajax_front_menu_' . trim($this->filter_identifier);
         // Supprime l'action de la classe de base
-        remove_action('ng1_front_menu', array($this, 'add_in_front_menu'));
+        remove_action('ng1_front_menu', array($this, 'ng1_front_menu'));
         // Utilisez la priorité passée en argument ou la valeur par défaut (10)
         $this->tab_index = $tab_index;
         $this->menu_label = $menu_label;
 
 
         // Ajoute la nouvelle action avec la priorité définie
-        add_action('ng1_front_menu', array($this, 'ng1_front_menu'), $this->tab_index);
-        add_filter('ng1_front_menu_tabs_label_'.$this->tab_index,function() {return $this->filter_identifier;});
+        //add_action('ng1_front_menu', array($this, 'ng1_front_menu'), $this->tab_index);
+        if((!empty($filter_identifier))){
+            add_filter('ng1_front_menu_tabs_label_'.$this->tab_index,function() {return $this->filter_identifier;});
+        }
+   
         add_action('ng1_front_menu_tabs_'.$this->tab_index, array($this, 'ng1_front_menu'));
         // Si $load_js_callback n'est pas défini, utilisez load_js par défaut
         if ($load_js_callback === null) {

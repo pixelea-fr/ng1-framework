@@ -4,12 +4,10 @@
  */
 class ng1ZipThemeFolders {
     public function __construct() {
-
-    new Ng1AjaxFrontMenu('generate_theme_assets_zip', array($this, 'zip_theme_acf_blocks'), 'generate_theme_assets_zip', 10, 'Générer le zip de tous les dossiers de thème');
-    new Ng1AjaxFrontMenu('generate_zip_customfolder', array($this, 'customfolder_zip_action'), 'generate_zip_customfolder', 10, 'Générer le zip du theme sélectionné','customfolder');
-    add_filter('ng1_ajax_front_menu_customfolder_data', array($this,'customfolder_filter_js_ajax_data'),10);
-    add_filter('ng1_ajax_front_menu_customfolder_form', array($this,'customfolder_generate_zip_form_ajax_front_menu'),10);
-
+        new Ng1AjaxFrontMenu('generate_theme_assets_zip', array($this, 'zip_theme_acf_blocks'), 'generate_theme_assets_zip', 4, 'Créé les zip des acf-blocks (uploads/ng1_export/acf-blocks/*.zip)');
+        new Ng1AjaxFrontMenu('generate_zip_customfolder', array($this, 'customfolder_zip_action'), 'generate_zip_customfolder', 4, 'Créé zip d\'un dossier du theme sélectionné uploads/ng1_export/nom_dossier','customfolder');
+        add_filter('ng1_ajax_front_menu_customfolder_data', array($this,'customfolder_filter_js_ajax_data'),10);
+        add_filter('ng1_ajax_front_menu_customfolder_form', array($this,'customfolder_generate_zip_form_ajax_front_menu'),10);
     }
     /**
      * Crée un fichier ZIP à partir du dossier de thème spécifié.
@@ -24,6 +22,12 @@ class ng1ZipThemeFolders {
 
         // Récupérez le chemin du dossier du thème actif
         $theme_folder = get_stylesheet_directory() . '/' . $folder_name;
+
+        // Vérifie si le répertoire principal des blocs existe
+        if (!file_exists($theme_folder) || !is_dir($theme_folder)) {
+            // Crée le répertoire s'il n'existe pas
+            wp_mkdir_p($theme_folder);
+        }
 
         // Récupérez la liste des dossiers dans le répertoire du thème
         $theme_folders = scandir($theme_folder);

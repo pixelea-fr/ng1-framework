@@ -15,7 +15,7 @@ class Ng1GenerateHeadingBlockStyles {
 
         $this->ng1ThemeJsonUtilities = new Ng1ThemeJsonUtilities();
         // usage :  $this->ng1ThemeJsonUtilities->convertJsonPropertiesToCssProperties($value);
-        new Ng1AjaxFrontMenu('generate_typographie_styles_css', array($this, 'generateTypographySCSS'), 'generate_typographie_styles_css', 10, 'Générer les fichiers de style des typographies');
+        new Ng1AjaxFrontMenu('generate_typographie_styles_css', array($this, 'generateTypographySCSS'), 'generate_typographie_styles_css', 1, 'Créé style des typographies (is-style-h1,...)', 'Thème');
         //new Ng1AjaxFrontMenu('generate_typographie_block_syles', array($this, 'addHeadingBlockStyles'), 'generate_typographie_block_syles', 10, 'Générer les style de block des typographies');
        // add_action('init', array($this, 'generateTypographySCSS'));
        add_action('init', array($this,'addHeadingBlockStyles'));

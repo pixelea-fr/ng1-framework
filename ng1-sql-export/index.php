@@ -12,7 +12,7 @@ class ng1ExportDatabase {
     // Constructeur pour initialiser les propriétés de classe
     public function __construct() {
 
-       new Ng1AjaxFrontMenu('generate_sql_file', array($this, 'export_database_to_sql'), null,1, 'Exporter la base de données',"SQL");
+       new Ng1AjaxFrontMenu('generate_sql_file', array($this, 'export_database_to_sql'), null,3, 'Exporter la base de données',"Base de donnée");
     }
 
     // Fonction pour exporter la base de données
@@ -20,10 +20,19 @@ class ng1ExportDatabase {
         global $wpdb;
         // Créez un nom de fichier pour le fichier SQL basé sur la date et l'heure actuelles
         $filename = 'backup.sql';
-
+        $sql_directory = get_stylesheet_directory() . '/sql';
+        // Vérifie si le répertoire principal des blocs existe
+        if (!file_exists($sql_directory) || !is_dir($sql_directory)) {
+            wp_mkdir_p($sql_directory);
+            return;
+        }
         // Chemin complet du fichier SQL dans le répertoire du thème
-        $file_path = get_stylesheet_directory() . '/sql/' . $filename;
-
+        $file_path = $sql_directory . '/' . $filename;
+        // Vérifie si le fichier existe
+        if (!file_exists($file_path)) {
+            // Crée le fichier s'il n'existe pas
+            file_put_contents($file_path, '');
+        }
         // Récupérez toutes les tables de la base de données WordPress
         $tables = $wpdb->get_results("SHOW TABLES");
 
