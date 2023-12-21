@@ -1,5 +1,4 @@
 p.is-style-h4, .editor-styles-wrapper p.is-style-h4, h1.is-style-h4, .editor-styles-wrapper h1.is-style-h4, h2.is-style-h4, .editor-styles-wrapper h2.is-style-h4, h3.is-style-h4, .editor-styles-wrapper h3.is-style-h4, h4.is-style-h4, .editor-styles-wrapper h4.is-style-h4, h5.is-style-h4, .editor-styles-wrapper h5.is-style-h4, h6.is-style-h4, .editor-styles-wrapper h6.is-style-h4 {
-  color: var(--wp--preset--color--first);
-  font-size: var(--wp--preset--font-size--xx-large);
-  letter-spacing: var(--wp--custom--letter-spacing--l);
+  font-size: var(--wp--preset--font-size--medium-plus);
+  font-weight: 500;
 }
